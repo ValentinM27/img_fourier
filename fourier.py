@@ -28,7 +28,7 @@ def main():
 
 		plt.subplot(132)
 		plt.title("DFT 2D")
-		plt.imshow(np.real(dft_2D), cmap='gray', vmin=0, vmax=255)
+		plt.imshow(np.abs(dft_2D), cmap='gray', vmin=0, vmax=255)
 
 		plt.subplot(133)
 		plt.title("IDFT 2D")
@@ -72,13 +72,6 @@ def discrete_fourier_transform_1D(image):
 
 		# On associe les parties réelle et imaginaire
 		dft_img[u] = round(somme.real, 4) + round(somme.imag, 4)
-
-	# Si les valeurs de parties sont infiniment petites, on inverse les parties réelle et complexe
-	for j in range(N) :
-		if abs(dft_img[j].real) < (10**(-15)) :
-			dft_img[j] = complex(0,dft_img[j].imag)
-		if abs(dft_img[j].imag) < (10**(-15)) :
-			dft_img[j] = complex(dft_img[j].real,0)
 
 	# On retourne l'absoule
 	return dft_img
@@ -124,14 +117,6 @@ def invert_discrete_fourier_transform_1D(image):
 
 		# On associe les parties réelle et imaginaire
 		idft_img[u] = somme.real
-
-
-	# Si les valeurs de parties sont infiniment petites, on inverse les parties réelle et complexe
-	for j in range(N) :
-		if abs(idft_img[j].real) < (10**(-15)) :
-			idft_img[j] = complex(0,idft_img[j].imag)
-		if abs(idft_img[j].imag) < (10**(-15)) :
-			idft_img[j] = complex(idft_img[j].real,0)
 
 	# On retourne l'absoule
 	return idft_img
