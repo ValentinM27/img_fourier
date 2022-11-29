@@ -20,7 +20,10 @@ def main():
 	if choice == 1:
 		# dft 2D
 		dft_2D = discrete_fourier_transform_2D(pixels);
+
 		idft_2D = invert_discrete_fourier_transform_2D(dft_2D)
+		arr_idft_2D = np.array(idft_2D)
+		image_idft_2D = i.fromarray(arr_idft_2D).rotate(180)
 
 		plt.subplot(131)
 		plt.title("Image originale convertie en gris")
@@ -32,7 +35,7 @@ def main():
 
 		plt.subplot(133)
 		plt.title("IDFT 2D")
-		plt.imshow(np.real(idft_2D), cmap='gray', vmin=0, vmax=255)
+		plt.imshow(image_idft_2D, cmap='gray', vmin=0, vmax=255)
 
 		plt.show()
 
@@ -116,7 +119,7 @@ def invert_discrete_fourier_transform_1D(image):
 			somme += image[x]*omega**(x*u)
 
 		# On associe les parties réelle et imaginaire
-		idft_img[u] = somme.real
+		idft_img[u] = round(somme.real, 4) + round(somme.imag, 4)
 
 	# On retourne l'absoule
 	return idft_img
