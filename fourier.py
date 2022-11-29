@@ -7,15 +7,23 @@ from PIL import Image as i, ImageOps
 from tqdm import tqdm
 
 def main():
+	# Traitement image
 	image = i.open("cafe.jpg")
 	gray_image = ImageOps.grayscale(image)
 	pixels = list(gray_image.getdata())
 	width, height = image.size
 	pixels = [pixels[i * width:(i + 1) * width] for i in range(height)]
 
+	# dft 2D
 	dft_2D = discrete_fourier_transform_2D(pixels);
+	plt.subplot(131)
+	plt.title("Image originale convertie en gris")
+	plt.imshow(pixels, cmap='gray', vmin=0, vmax=255)
+
+	plt.subplot(132)
 	plt.title("DFT 2D")
-	plt.imshow(dft_2D, cmap='gray', vmin=0, vmax=255)
+	plt.imshow(np.abs(dft_2D), cmap='gray', vmin=0, vmax=255)
+
 	plt.show()
 
 '''
@@ -42,7 +50,7 @@ def discrete_fourier_transform_1D(image):
 		dft_img[u] = round(somme.real, 4) + round(somme.imag, 4)
 
 	# On retourne l'absoule
-	return np.abs(dft_img)
+	return dft_img
 
 '''
 Transformée de fourier discrète 2D
