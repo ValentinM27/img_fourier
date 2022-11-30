@@ -17,48 +17,50 @@ def main():
 	pixels = [pixels[i * width:(i + 1) * width] for i in range(height)]
 
 	choice = 0
-	choice = int(input("Choix du programme : "))
 
-	if choice == 1:
-		# dft 2D
-		dft_2D = discrete_fourier_transform_2D(pixels);
+	while choice != -1:
+		choice = int(input("Choix du programme : "))
 
-		idft_2D = invert_discrete_fourier_transform_2D(dft_2D)
-		arr_idft_2D = np.array(idft_2D)
-		image_idft_2D = i.fromarray(arr_idft_2D).rotate(180)
+		if choice == 1:
+			# dft 2D
+			dft_2D = discrete_fourier_transform_2D(pixels);
 
-		plt.subplot(131)
-		plt.title("Image originale convertie en gris")
-		plt.imshow(pixels, cmap='gray', vmin=0, vmax=255)
+			idft_2D = invert_discrete_fourier_transform_2D(dft_2D)
+			arr_idft_2D = np.array(idft_2D)
+			image_idft_2D = i.fromarray(arr_idft_2D).rotate(180)
 
-		plt.subplot(132)
-		plt.title("DFT 2D")
-		plt.imshow(np.abs(dft_2D), cmap='gray', vmin=0, vmax=255)
+			plt.subplot(131)
+			plt.title("Image originale convertie en gris")
+			plt.imshow(pixels, cmap='gray', vmin=0, vmax=255)
 
-		plt.subplot(133)
-		plt.title("IDFT 2D")
-		plt.imshow(image_idft_2D, cmap='gray', vmin=0, vmax=255)
+			plt.subplot(132)
+			plt.title("DFT 2D")
+			plt.imshow(np.real(dft_2D), cmap='gray', vmin=0, vmax=255)
 
-		plt.show()
+			plt.subplot(133)
+			plt.title("IDFT 2D")
+			plt.imshow(image_idft_2D, cmap='gray', vmin=0, vmax=255)
 
-	if choice == 2:
-		# fft 2D
-		fft_2D = fast_fourier_transform_2D(pixels);
-		ifft_2D = invert_fast_fourier_transform_2D(fft_2D)
+			plt.show()
 
-		plt.subplot(131)
-		plt.title("Image originale convertie en gris")
-		plt.imshow(pixels, cmap='gray', vmin=0, vmax=255)
+		if choice == 2:
+			# fft 2D
+			fft_2D = fast_fourier_transform_2D(pixels);
+			ifft_2D = invert_fast_fourier_transform_2D(fft_2D)
 
-		plt.subplot(132)
-		plt.title("FFT 2D")
-		plt.imshow(np.abs(fft_2D), cmap='gray', vmin=0, vmax=255)
+			plt.subplot(131)
+			plt.title("Image originale convertie en gris")
+			plt.imshow(pixels, cmap='gray', vmin=0, vmax=255)
 
-		plt.subplot(133)
-		plt.title("IFFT 2D")
-		plt.imshow(ifft_2D, cmap='gray', vmin=0, vmax=255)
+			plt.subplot(132)
+			plt.title("FFT 2D")
+			plt.imshow(np.real(fft_2D), cmap='gray', vmin=0, vmax=255)
 
-		plt.show()
+			plt.subplot(133)
+			plt.title("IFFT 2D")
+			plt.imshow(ifft_2D, cmap='gray', vmin=0, vmax=255)
+
+			plt.show()
 
 '''
 Fonction de transposition
